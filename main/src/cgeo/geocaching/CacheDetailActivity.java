@@ -39,6 +39,7 @@ import android.os.Message;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.Html;
 import android.text.Spannable;
 import android.text.Spanned;
@@ -117,6 +118,11 @@ public class CacheDetailActivity extends AbstractActivity {
      * Instances of all {@link PageViewCreator}.
      */
     private final Map<Page, PageViewCreator> viewCreators = new HashMap<Page, PageViewCreator>();
+
+    /**
+     * The {@link ViewPager} for this activity.
+     */
+    private ViewPager viewPager;
 
     /**
      * The {@link ViewPagerAdapter} for this activity.
@@ -242,12 +248,36 @@ public class CacheDetailActivity extends AbstractActivity {
         }
 
         // initialize ViewPager
-        ViewPager pager = (ViewPager) findViewById(R.id.viewpager);
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
         viewPagerAdapter = new ViewPagerAdapter();
-        pager.setAdapter(viewPagerAdapter);
+        viewPager.setAdapter(viewPagerAdapter);
 
         titleIndicator = (TitlePageIndicator) findViewById(R.id.pager_indicator);
-        titleIndicator.setViewPager(pager);
+        titleIndicator.setViewPager(viewPager);
+        titleIndicator.setOnPageChangeListener(new OnPageChangeListener() {
+
+            @Override
+            public void onPageSelected(int position) {
+            }
+
+            // We jump from the end to the beginning and the other way around.
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                if (0 == positionOffset) {
+                    if (0 == position) {
+                        viewPager.setCurrentItem(pageOrder.size() - 2, false);
+                    } else if (pageOrder.size() - 1 == position) {
+                        viewPager.setCurrentItem(1, false);
+                    }
+                    titleIndicator.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int arg0) {
+
+            }
+        });
 
         // Initialization done. Let's load the data with the given information.
         new LoadCacheThread(geocode, guid, loadCacheHandler).start();
@@ -590,6 +620,15 @@ public class CacheDetailActivity extends AbstractActivity {
             pageOrder.add(Page.INVENTORY);
         }
 
+        // insert duplicate of the last page again at the beginning
+        pageOrder.add(0, pageOrder.get(pageOrder.size() - 1));
+
+        // add duplicate of the first page (now the second) at the end
+        pageOrder.add(pageOrder.get(1));
+
+        // TODO: Don't use position 2
+        viewPager.setCurrentItem(1, false);
+
         // notify the adapter that the data has changed
         viewPagerAdapter.notifyDataSetChanged();
 
@@ -903,7 +942,7 @@ public class CacheDetailActivity extends AbstractActivity {
 
         @Override
         public void destroyItem(View container, int position, Object object) {
-            ((ViewPager) container).removeView((View) object);
+            //((ViewPager) container).removeView((View) object);
         }
 
         @Override
@@ -957,7 +996,9 @@ public class CacheDetailActivity extends AbstractActivity {
                     ((ViewPager) container).addView(view, 0);
                 }
             } catch (Exception e) {
-                Log.e(Settings.tag, "ViewPagerAdapter.instantiateItem ", e);
+                // TODO: We don't remove views (see above), so the view maybe has already a parent
+                // Log.e(Settings.tag, "ViewPagerAdapter.instantiateItem ", e);
+                // nothing
             }
 
             return view;
