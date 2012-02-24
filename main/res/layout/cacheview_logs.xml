@@ -8,7 +8,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical"
-        android:padding="4dip" >
+        android:padding="3dip" >
 
         <RelativeLayout
             android:id="@+id/loading"
@@ -29,8 +29,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dip"
-            android:textColor="?text_color"
-            android:textSize="14dip"
             android:visibility="gone" />
 
         <LinearLayout

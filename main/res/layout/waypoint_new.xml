@@ -37,53 +37,49 @@
 
             <Button
                 android:id="@+id/buttonLatitude"
-                style="@style/button"
+                style="@style/Button.Large"
                 android:hint="@string/latitude" />
 
             <Button
                 android:id="@+id/buttonLongitude"
-                style="@style/button"
+                style="@style/Button.Large"
                 android:hint="@string/longitude" />
 
             <EditText
                 android:id="@+id/bearing"
-                style="@style/edittext"
                 android:hint="@string/waypoint_bearing"
                 android:inputType="numberDecimal" />
 
-	        <LinearLayout
-	            android:layout_width="fill_parent"
-    	        android:layout_height="wrap_content"
-            	android:orientation="horizontal" >
-            
-	            <EditText
-                	android:id="@+id/distance"
-                	style="@style/edittext"
-                	android:hint="@string/waypoint_distance"
-                	android:inputType="numberDecimal"
-                	android:layout_width="0dip"
-                	android:layout_weight="1" />
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
 
-	            <Spinner 
-                	android:id="@+id/distanceUnit"
-                	android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:entries="@array/distance_units" />
-        	</LinearLayout>
+                <EditText
+                    android:id="@+id/distance"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
+                    android:hint="@string/waypoint_distance"
+                    android:inputType="numberDecimal" />
 
-	        <AutoCompleteTextView
+                <Spinner
+                    android:id="@+id/distanceUnit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/distance_units" />
+            </LinearLayout>
+
+            <AutoCompleteTextView
                 android:id="@+id/name"
-                style="@style/edittext"
                 android:hint="@string/waypoint_name" />
-            
-            <Spinner 
+
+            <Spinner
                 android:id="@+id/type"
                 android:layout_width="fill_parent"
-				android:layout_height="wrap_content" />
+                android:layout_height="wrap_content" />
 
             <EditText
                 android:id="@+id/note"
-                style="@style/edittext"
                 android:layout_height="wrap_content"
                 android:capitalize="sentences"
                 android:hint="@string/waypoint_note"
@@ -92,7 +88,6 @@
 
             <Button
                 android:id="@+id/add_waypoint"
-                style="@style/button"
                 android:text="@string/waypoint_save" />
         </LinearLayout>
     </ScrollView>

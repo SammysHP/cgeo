@@ -81,9 +81,9 @@ public final class ActivityMixin {
 
     public final static void setTheme(final Activity activity) {
         if (Settings.isLightSkin()) {
-            activity.setTheme(R.style.light);
+            activity.setTheme(R.style.cgeo_light);
         } else {
-            activity.setTheme(R.style.dark);
+            activity.setTheme(R.style.cgeo_dark);
         }
     }
 

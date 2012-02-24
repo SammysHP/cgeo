@@ -112,7 +112,7 @@ public class cgeopopup extends AbstractActivity {
         super.onCreate(savedInstanceState);
 
         // set layout
-        setTheme(R.style.transparent);
+        setTheme(R.style.cgeo_dark_dialog);
         setContentView(R.layout.popup);
         setTitle(res.getString(R.string.detail));
 

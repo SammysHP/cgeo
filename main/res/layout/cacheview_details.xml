@@ -8,7 +8,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical"
-        android:padding="4dip" >
+        android:padding="3dip" >
 
         <!-- Details list -->
 
@@ -66,16 +66,12 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
-                    android:layout_gravity="left"
-                    android:layout_marginLeft="6dip"
                     android:layout_marginRight="130dip"
-                    android:paddingRight="3dip"
-                    android:textColor="?text_color"
-                    android:textSize="14dip" />
+                    android:paddingRight="3dip" />
 
                 <Button
                     android:id="@+id/offline_refresh"
-                    style="@style/button_small"
+                    style="@style/Button.Small"
                     android:layout_width="60dip"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="71dip"
@@ -84,7 +80,7 @@
 
                 <Button
                     android:id="@+id/offline_store"
-                    style="@style/button_small"
+                    style="@style/Button.Small"
                     android:layout_width="60dip"
                     android:layout_alignParentRight="true"
                     android:text="@string/cache_offline_store" />
@@ -113,23 +109,19 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
-                    android:layout_gravity="left"
-                    android:layout_marginLeft="6dip"
                     android:layout_marginRight="130dip"
-                    android:paddingRight="3dip"
-                    android:textColor="?text_color"
-                    android:textSize="14dip" />
+                    android:paddingRight="3dip" />
 
                 <Button
                     android:id="@+id/add_to_watchlist"
-                    style="@style/button_small"
+                    style="@style/Button.Small"
                     android:layout_alignParentRight="true"
                     android:text="@string/cache_watchlist_add"
                     android:visibility="gone" />
 
                 <Button
                     android:id="@+id/remove_from_watchlist"
-                    style="@style/button_small"
+                    style="@style/Button.Small"
                     android:layout_alignParentRight="true"
                     android:text="@string/cache_watchlist_remove"
                     android:visibility="gone" />
@@ -149,22 +141,10 @@
                 android:layout_marginBottom="9dp"
                 android:layout_marginTop="9dp" />
 
-            <RelativeLayout
+            <TextView
+                android:id="@+id/debug_text"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content" >
-
-                <TextView
-                    android:id="@+id/debug_text"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_gravity="left"
-                    android:layout_marginLeft="6dip"
-                    android:layout_marginRight="130dip"
-                    android:paddingRight="3dip"
-                    android:textColor="?text_color"
-                    android:textSize="14dip" />
-            </RelativeLayout>
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
         <!-- License Box -->
@@ -189,12 +169,7 @@
                 android:id="@+id/license"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:linksClickable="true"
-                android:padding="3dip"
-                android:textColor="?text_color"
-                android:textColorLink="?text_color_link"
-                android:textSize="14dip" />
+                android:linksClickable="true" />
         </LinearLayout>
 
         <!-- Map Preview Box -->
@@ -217,9 +192,9 @@
                 android:layout_height="80dip"
                 android:layout_gravity="center"
                 android:gravity="center"
+                android:onClick="showNavigationMenu"
                 android:scaleType="centerCrop"
-                android:src="@null"
-                android:onClick="showNavigationMenu" />
+                android:src="@null" />
         </LinearLayout>
     </LinearLayout>
 

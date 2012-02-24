@@ -79,14 +79,14 @@
 			<RelativeLayout
 					android:layout_width="fill_parent"
 					android:layout_height="wrap_content" >
-				<Button style="@style/button_small"
+				<Button style="@style/Button.Small"
 						android:id="@+id/delete"
 						android:visibility="gone"
 						android:layout_width="60dip"
 						android:layout_marginRight="71dip"
 						android:layout_alignParentRight="true"
 						android:text="@string/waypoint_delete" />
-				<Button style="@style/button_small"
+				<Button style="@style/Button.Small"
 						android:id="@+id/edit"
 						android:layout_width="60dip"
 						android:layout_alignParentRight="true"

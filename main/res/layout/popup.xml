@@ -37,7 +37,7 @@
 					android:layout_width="fill_parent"
 					android:layout_height="wrap_content"
 					android:orientation="vertical"  >
-				<Button style="@style/button_small"
+				<Button style="@style/Button.Small"
 						android:id="@+id/more_details"
 						android:text="@string/popup_more" />
 			</LinearLayout>
@@ -62,14 +62,14 @@
 							android:paddingRight="3dip"
 							android:textSize="14dip"
 							android:textColor="?text_color" />
-					<Button style="@style/button_small"
+					<Button style="@style/Button.Small"
 							android:id="@+id/offline_refresh"
 							android:visibility="gone"
 							android:layout_width="60dip"
 							android:layout_marginRight="71dip"
 							android:layout_alignParentRight="true"
 							android:text="@string/cache_offline_refresh" />
-					<Button style="@style/button_small"
+					<Button style="@style/Button.Small"
 							android:id="@+id/offline_store"
 							android:layout_width="60dip"
 							android:layout_alignParentRight="true"

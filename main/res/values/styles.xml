@@ -1,37 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- system definitions -->
-    <style name="cgeo" parent="android:Theme.NoTitleBar"></style>
+    <!-- Button -->
 
-    <style name="button" parent="@android:style/Widget.Button">
+    <style name="Button" parent="android:Widget.Button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:padding">6dip</item>
         <item name="android:lines">1</item>
         <item name="android:singleLine">true</item>
         <item name="android:scrollHorizontally">true</item>
         <item name="android:ellipsize">marquee</item>
-        <item name="android:textSize">22dip</item>
-        <item name="android:textColor">?text_color</item>
+        <item name="android:textSize">@dimen/textsize_large</item>
         <item name="android:background">?button</item>
-        <item name="android:focusable">true</item>
-        <item name="android:clickable">true</item>
         <item name="android:gravity">center</item>
+        <item name="android:layout_marginLeft">3dip</item>
+        <item name="android:layout_marginRight">3dip</item>
+        <item name="android:layout_marginTop">3dip</item>
+        <item name="android:layout_marginBottom">3dip</item>
+        <item name="android:textColor">?text_color</item>
     </style>
 
-    <style name="edittext" parent="@android:style/Widget.EditText">
+    <style name="Button.Large" parent="Button">
+        <item name="android:layout_width">fill_parent</item>
+    </style>
+
+    <style name="Button.Small" parent="Button">
+        <item name="android:layout_width">125dip</item>
+        <item name="android:layout_gravity">right</item>
+        <item name="android:padding">3dip</item>
+        <item name="android:textSize">@dimen/textsize_normal</item>
+    </style>
+
+    <!-- EditText -->
+
+    <style name="EditText" parent="android:Widget.EditText">
         <item name="android:padding">6dip</item>
         <item name="android:singleLine">true</item>
-        <item name="android:autoText">true</item>
-        <item name="android:textSize">22dip</item>
+        <item name="android:textSize">@dimen/textsize_large</item>
         <item name="android:textColor">?text_color</item>
         <item name="android:textColorHint">?text_color_hint</item>
         <item name="android:background">?input</item>
         <item name="android:focusable">true</item>
         <item name="android:gravity">top|left</item>
-        <item name="android:capitalize">none</item>
+        <item name="android:inputType">text</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">3dip</item>
+        <item name="android:layout_marginRight">3dip</item>
+        <item name="android:layout_marginTop">3dip</item>
+        <item name="android:layout_marginBottom">3dip</item>
     </style>
 
-    <!-- own definitions -->
+    <style name="EditText.Dialog" parent="EditText">
+        <item name="android:textColor">@color/text_dark</item>
+        <item name="android:textColorHint">@color/text_hint_dark</item>
+        <item name="android:background">@drawable/input_bcg_dark</item>
+    </style>
+
     <!-- actionbar -->
     <style name="action_bar">
         <item name="android:layout_width">fill_parent</item>
@@ -89,48 +115,6 @@
         <item name="android:textSize">20dip</item>
         <item name="android:textColor">@color/just_white</item>
         <item name="android:text">c:geo</item>
-    </style>
-
-    <!-- button: full width -->
-    <style name="button">
-        <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginLeft">10dip</item>
-        <item name="android:layout_marginRight">10dip</item>
-        <item name="android:layout_marginBottom">5dip</item>
-    </style>
-
-    <!-- button: small -->
-    <style name="button_small">
-        <item name="android:layout_width">125dip</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_gravity">right</item>
-        <item name="android:layout_marginLeft">6dip</item>
-        <item name="android:layout_marginRight">6dip</item>
-        <item name="android:layout_marginTop">3dip</item>
-        <item name="android:layout_marginBottom">3dip</item>
-        <item name="android:padding">3dip</item>
-        <item name="android:textSize">14dip</item>
-    </style>
-
-    <!-- edittext -->
-    <style name="edittext">
-        <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginLeft">10dip</item>
-        <item name="android:layout_marginRight">10dip</item>
-        <item name="android:layout_marginBottom">5dip</item>
-    </style>
-
-    <style name="edittext_dialog">
-        <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginLeft">10dip</item>
-        <item name="android:layout_marginRight">10dip</item>
-        <item name="android:layout_marginBottom">5dip</item>
-        <item name="android:textColor">@color/text_dark</item>
-        <item name="android:textColorHint">@color/text_hint_dark</item>
-        <item name="android:background">@drawable/input_bcg_dark</item>
     </style>
 
     <!-- mainscreen icon -->

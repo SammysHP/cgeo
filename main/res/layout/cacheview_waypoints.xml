@@ -7,7 +7,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical"
-        android:padding="4dip" >
+        android:padding="3dip" >
 
         <LinearLayout
             android:id="@+id/waypoints"
@@ -17,10 +17,10 @@
         </LinearLayout>
 
         <Button
+            style="@style/Button.Large"
             android:id="@+id/add_waypoint"
-            style="@style/button"
-            android:text="@string/cache_waypoints_add"
-            android:layout_marginTop="9dp" />
+            android:layout_marginTop="9dp"
+            android:text="@string/cache_waypoints_add" />
     </LinearLayout>
 
 </ScrollView>
