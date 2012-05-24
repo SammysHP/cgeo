@@ -15,14 +15,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PowerManager;
+import android.speech.tts.TextToSpeech;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
 
 public class cgeonavigate extends AbstractActivity {
 
@@ -32,6 +35,8 @@ public class cgeonavigate extends AbstractActivity {
     private static final List<IWaypoint> coordinates = new ArrayList<IWaypoint>();
     private static final int MENU_MAP = 0;
     private static final int MENU_SWITCH_COMPASS_GPS = 1;
+    private static final int MENU_TTS = 1000;
+    private static final int TTS_CHECK = 1;
     private PowerManager pm = null;
     private Geopoint dstCoords = null;
     private float cacheHeading = 0;
@@ -45,6 +50,8 @@ public class cgeonavigate extends AbstractActivity {
     private TextView headingView = null;
     private CompassView compassView = null;
     private String geocode;
+    private TextToSpeech ttsEngine = null;
+    private long lastTtsActivity = 0;
 
     public cgeonavigate() {
         super("c:geo-compass", true);
@@ -122,6 +129,7 @@ public class cgeonavigate extends AbstractActivity {
 
     @Override
     public void onDestroy() {
+        stopTts();
         compassView.destroyDrawingCache();
         super.onDestroy();
     }
@@ -141,6 +149,7 @@ public class cgeonavigate extends AbstractActivity {
         } else {
             menu.add(0, 3, 0, res.getString(R.string.destination_select)).setIcon(R.drawable.ic_menu_myplaces).setEnabled(false);
         }
+        menu.add(0, MENU_TTS, 0, res.getString(R.string.tts_start)).setIcon(R.drawable.ic_menu_edit);
         return true;
     }
 
@@ -148,6 +157,7 @@ public class cgeonavigate extends AbstractActivity {
     public boolean onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
         menu.findItem(MENU_SWITCH_COMPASS_GPS).setTitle(res.getString(Settings.isUseCompass() ? R.string.use_gps : R.string.use_compass));
+        menu.findItem(MENU_TTS).setTitle(res.getString(isTtsEnabled() ? R.string.tts_stop : R.string.tts_start));
         return true;
     }
 
@@ -157,6 +167,12 @@ public class cgeonavigate extends AbstractActivity {
 
         if (id == MENU_MAP) {
             CGeoMap.startActivityCoords(this, dstCoords, null, null);
+        } else if (id == MENU_TTS) {
+            if (isTtsEnabled()) {
+                stopTts();
+            } else {
+                startTts();
+            }
         } else if (id == MENU_SWITCH_COMPASS_GPS) {
             boolean oldSetting = Settings.isUseCompass();
             Settings.setUseCompass(!oldSetting);
@@ -186,6 +202,53 @@ public class cgeonavigate extends AbstractActivity {
         }
 
         return false;
+    }
+
+    @Override
+    protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+        switch (resultCode) {
+            case TTS_CHECK:
+                if (resultCode != TextToSpeech.Engine.CHECK_VOICE_DATA_PASS) {
+                    showToast(res.getString(R.string.tts_notavailable));
+                    break;
+                }
+
+                ttsEngine = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+                    @Override
+                    public void onInit(int status) {
+                        final Locale chosenLocale = Settings.isUseEnglish() ? Locale.ENGLISH : Locale.getDefault();
+
+                        if (status != TextToSpeech.SUCCESS || ttsEngine.isLanguageAvailable(chosenLocale) < TextToSpeech.LANG_AVAILABLE) {
+                            ttsEngine = null;
+                            showToast(res.getString(R.string.tts_notavailable));
+                            return;
+                        }
+                    }
+                });
+                break;
+
+            default:
+                super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    private boolean isTtsEnabled() {
+        return ttsEngine != null;
+    }
+
+    private void startTts() {
+        Intent ttsCheckIntent = new Intent();
+        ttsCheckIntent.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
+        startActivityForResult(ttsCheckIntent, TTS_CHECK);
+    }
+
+    private void stopTts() {
+        if (ttsEngine == null) {
+            return;
+        }
+
+        ttsEngine.shutdown();
+        ttsEngine = null;
     }
 
     private void setTitle() {
@@ -270,6 +333,22 @@ public class cgeonavigate extends AbstractActivity {
 
                 if (!Settings.isUseCompass() || geo.getSpeed() > 5) { // use GPS when speed is higher than 18 km/h
                     updateNorthHeading(geo.getBearing());
+                }
+
+                if (isTtsEnabled() && Calendar.getInstance().getTimeInMillis() - lastTtsActivity > 5000) { //all 5 seconds
+                    final String humanDistance = HumanDistance.getHumanDistance(geo.getCoords().distanceTo(dstCoords));
+
+                    float direction = geo.getCoords().bearingTo(dstCoords) - geo.getBearing();
+                    if (direction < 0) {
+                        direction += 360;
+                    }
+                    int humanDirection = Math.round((direction + 15) / 30);
+                    if (humanDirection == 0) {
+                        humanDirection = 12;
+                    }
+
+                    ttsEngine.speak(humanDistance + ", " + humanDirection + " Uhr", TextToSpeech.QUEUE_FLUSH, null);
+                    lastTtsActivity = Calendar.getInstance().getTimeInMillis();
                 }
             } catch (Exception e) {
                 Log.w("Failed to LocationUpdater location.");

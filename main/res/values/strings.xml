@@ -989,6 +989,11 @@
       <item quantity="one">yesterday</item>
       <item quantity="other">%d days ago</item>
   </plurals>
+  
+  <!-- TTS -->
+  <string name="tts_start">Start TTS</string>
+  <string name="tts_stop">Stop TTS</string>
+  <string name="tts_notavailable">TTS service not available in your language</string>
       
   <!-- ====== please, do not translate (and include in translation) things below this line ====== -->
 
