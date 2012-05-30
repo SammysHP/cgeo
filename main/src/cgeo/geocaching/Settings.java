@@ -91,6 +91,8 @@ public final class Settings {
     private static final String KEY_SETTINGS_VERSION = "settingsversion";
     private static final String KEY_DB_ON_SDCARD = "dbonsdcard";
     private static final String KEY_LAST_TRACKABLE_ACTION = "trackableaction";
+    private static final String KEY_RENDER_THEME_ENABLED = "renderthemeenabled";
+    private static final String KEY_RENDER_THEME_PATH = "renderthemepath";
 
     private final static int unitsMetric = 1;
 
@@ -1156,6 +1158,34 @@ public final class Settings {
             @Override
             public void edit(Editor edit) {
                 edit.putInt(KEY_LAST_TRACKABLE_ACTION, trackableAction);
+            }
+        });
+    }
+
+    public static boolean isCustomRenderTheme() {
+        return sharedPrefs.getBoolean(KEY_RENDER_THEME_ENABLED, false);
+    }
+
+    public static void setCustomRenderTheme(final boolean customRenderTheme) {
+        editSharedSettings(new PrefRunnable() {
+
+            @Override
+            public void edit(Editor edit) {
+                edit.putBoolean(KEY_RENDER_THEME_ENABLED, customRenderTheme);
+            }
+        });
+    }
+
+    public static String getCustomRenderThemePath() {
+        return sharedPrefs.getString(KEY_RENDER_THEME_PATH, "/sdcard/.cgeo/mapthemes/theme.xml");
+    }
+
+    public static void setCustomRenderThemePath(final String customRenderTheme) {
+        editSharedSettings(new PrefRunnable() {
+
+            @Override
+            public void edit(Editor edit) {
+                edit.putString(KEY_RENDER_THEME_PATH, customRenderTheme);
             }
         });
     }

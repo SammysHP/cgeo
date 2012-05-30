@@ -19,6 +19,7 @@ import cgeo.geocaching.utils.LogTemplateProvider;
 import cgeo.geocaching.utils.LogTemplateProvider.LogTemplate;
 
 import ch.boye.httpclientandroidlib.HttpResponse;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 
@@ -579,6 +580,16 @@ public class SettingsActivity extends AbstractActivity {
             public void onClick(View v) {
                 Intent selectIntent = new Intent(SettingsActivity.this, cgSelectMapfile.class);
                 startActivityForResult(selectIntent, SELECT_MAPFILE_REQUEST);
+            }
+        });
+
+        final CheckBox renderThemeButton = (CheckBox) findViewById(R.id.rendertheme);
+        renderThemeButton.setChecked(Settings.isCustomRenderTheme());
+        renderThemeButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Settings.setCustomRenderTheme(renderThemeButton.isChecked());
             }
         });
 
