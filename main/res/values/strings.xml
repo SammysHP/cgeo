@@ -993,6 +993,13 @@
   <string name="status_new_rc">New release candidate available.\nClick to install.</string>
   <string name="status_geocaching_change">Recent changes on geocaching.com broke c:geo.\nWe are working on it, check again soon.</string>
   <string name="status_geocaching_livemap">Recent changes on geocaching.com broke the live map feature.\nWe are working on it, check again soon.</string>
+  
+  <!-- image picker -->
+  <string name="imagepicker">ImagePicker</string>
+  <string name="imagepicker_add">Add image</string>
+  <string name="imagepicker_remove">Remove image</string>
+  <string name="imagepicker_edit">Edit image</string>
+  <string name="imagepicker_finished">Finished</string>
 
   <!-- go4cache -->
   <string name="go4cache_looking_around">Looking around</string>

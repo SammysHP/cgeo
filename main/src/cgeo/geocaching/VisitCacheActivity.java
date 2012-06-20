@@ -13,6 +13,7 @@ import cgeo.geocaching.network.Parameters;
 import cgeo.geocaching.twitter.Twitter;
 import cgeo.geocaching.ui.DateDialog;
 import cgeo.geocaching.ui.Formatter;
+import cgeo.geocaching.ui.ImagePickerDialog;
 import cgeo.geocaching.utils.Log;
 import cgeo.geocaching.utils.LogTemplateProvider;
 import cgeo.geocaching.utils.LogTemplateProvider.LogTemplate;
@@ -300,6 +301,7 @@ public class VisitCacheActivity extends AbstractActivity implements DateDialog.D
             menuLog.add(0, template.getItemId(), 0, template.getResourceId());
         }
         menuLog.add(0, MENU_SIGNATURE, 0, res.getString(R.string.init_signature));
+        menuLog.add(0, 5, 0, "Image"); //TODO
 
         final SubMenu menuStars = menu.addSubMenu(0, SUBMENU_VOTE, 0, res.getString(R.string.log_rating)).setIcon(R.drawable.ic_menu_sort_by_size);
         menuStars.add(0, 10, 0, res.getString(R.string.log_no_rating));
@@ -334,6 +336,18 @@ public class VisitCacheActivity extends AbstractActivity implements DateDialog.D
         if (id == MENU_SIGNATURE) {
             insertIntoLog(LogTemplateProvider.applyTemplates(Settings.getSignature(), false), true);
             return true;
+        }
+
+        //TODO
+        if (id == 5) {
+            ImagePickerDialog picker = new ImagePickerDialog(this) {
+                @Override
+                public void onFinish(cgImage image) {
+                    // nothing at the moment
+                }
+            };
+
+            picker.show();
         }
 
         if (id >= 10 && id <= 19) {
